@@ -16,14 +16,15 @@
             rpcUrls: { default: { http: ['https://rpc.ritualfoundation.org'] } }
         };
 
-        const CORE_ADDRESS = '0x1234567890123456789012345678901234567890'; // Replace with actual address after deployment
+        // REAL DEPLOYED ADDRESS
+        const CORE_ADDRESS = '0x0b97cfe0F65C5e1288CbD7901df20c98bEffE72a';
 
         const CORE_ABI = [
             {"inputs":[{"internalType":"address","name":"borrower","type":"address"}],"name":"getBusinessCredit","outputs":[{"components":[{"internalType":"address","name":"borrower","type":"address"},{"internalType":"uint256","name":"creditLimit","type":"uint256"},{"internalType":"uint256","name":"currentBorrowed","type":"uint256"},{"internalType":"uint256","name":"lastUpdatedScore","type":"uint256"},{"internalType":"bytes32","name":"activeJobId","type":"bytes32"},{"internalType":"enum DeepCredCore.Status","name":"status","type":"uint8"},{"internalType":"uint256","name":"lastUpdateTimestampMs","type":"uint256"}],"internalType":"struct DeepCredCore.BusinessCredit","name":"","type":"tuple"}],"stateMutability":"view","type":"function"},
             {"inputs":[{"internalType":"string","name":"dataUrl","type":"string"}],"name":"applyForCredit","outputs":[],"stateMutability":"payable","type":"function"}
         ];
 
-        // 1. Read-only client initialized on load (Prevents infinite blocking)
+        // 1. Read-only client initialized on load
         const publicClient = createPublicClient({
             chain: RITUAL_CHAIN,
             transport: http()
@@ -41,7 +42,7 @@
         const scoreText = document.getElementById('scoreText');
         const limitText = document.getElementById('limitText');
 
-        // Update UI status from read-only RPC
+        // Update UI status from REAL SMART CONTRACT
         async function fetchCreditStatus(address) {
             try {
                 const data = await publicClient.readContract({
@@ -52,9 +53,21 @@
                 });
                 
                 const statusMap = ['UNREGISTERED', 'PROCESSING (TEE)', 'APPROVED', 'REJECTED'];
-                statusText.innerText = statusMap[data.status] || 'Unknown';
+                const statusStr = statusMap[data.status] || 'Unknown';
+                
+                statusText.innerText = statusStr;
                 scoreText.innerText = data.lastUpdatedScore.toString();
                 limitText.innerText = formatEther(data.creditLimit) + ' dCRED';
+
+                if (data.status === 2) {
+                    statusText.className = "font-bold text-green-400 bg-green-400/10 px-3 py-1 rounded-full text-sm";
+                    scoreText.className = "font-bold text-3xl text-green-400";
+                } else if (data.status === 1) {
+                    statusText.className = "font-bold text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded-full text-sm";
+                } else {
+                    statusText.className = "font-bold text-slate-400 bg-slate-400/10 px-3 py-1 rounded-full text-sm";
+                }
+
             } catch (error) {
                 console.error("Fetch data error:", error);
             }
@@ -93,7 +106,7 @@
             document.getElementById('dataUrl').value = `https://mock-fhe.ritual.net/enterprise/data?taxId=US-${Math.floor(Math.random()*100000)}&lat=40.71&lng=-74.00&encrypted=true`;
         });
 
-        // Submit Transaction
+        // Submit Transaction to REAL SMART CONTRACT
         applyBtn.addEventListener('click', async () => {
             if (!account) return alert('Please connect your wallet first!');
             const dataUrl = document.getElementById('dataUrl').value;
@@ -108,12 +121,11 @@
                     address: CORE_ADDRESS,
                     abi: CORE_ABI,
                     functionName: 'applyForCredit',
-                    args: [dataUrl],
-                    value: parseEther('0.01')
+                    args: [dataUrl]
                 });
 
                 const hash = await walletClient.writeContract(request);
-                alert(`Transaction sent! TX: ${hash}`);
+                alert(`Real Blockchain Transaction sent! TX Hash: ${hash}`);
                 
                 // Wait for confirmation
                 await publicClient.waitForTransactionReceipt({ hash });
@@ -161,7 +173,7 @@
                     Submit Credit Request
                 </button>
             </div>
-            <p class="text-xs text-slate-500 mt-4">* TEE Precompile Fee: 0.01 RITUAL</p>
+            <p class="text-xs text-slate-500 mt-4">* Connected to Ritual Testnet Core Contract</p>
         </div>
 
         <!-- Status Column -->
