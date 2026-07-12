@@ -73,7 +73,7 @@
             }
         }
 
-        // Connect MetaMask
+        // Connect MetaMask & Ensure Correct Network
         connectBtn.addEventListener('click', async () => {
             if (!window.ethereum) return alert('Please install MetaMask!');
             
@@ -85,6 +85,20 @@
             const [address] = await walletClient.requestAddresses();
             account = address;
             walletAddressSpan.innerText = `${address.slice(0,6)}...${address.slice(-4)}`;
+            
+            // Yêu cầu MetaMask chuyển sang mạng Ritual Testnet
+            try {
+                await walletClient.switchChain({ id: 1979 });
+            } catch (error) {
+                // Nếu chưa cài đặt mạng này, thì tự động thêm vào ví
+                if (error.code === 4902) {
+                    try {
+                        await walletClient.addChain({ chain: RITUAL_CHAIN });
+                    } catch (addError) {
+                        console.error('Failed to add network', addError);
+                    }
+                }
+            }
             
             fetchCreditStatus(account);
         });
