@@ -69,9 +69,9 @@ forge script script/Deploy.s.sol:DeployScript --rpc-url https://rpc.ritualfounda
 2. Update the `CORE_ADDRESS` constant with your newly deployed contract address.
 3. Serve the `frontend` folder using any local web server (e.g., `npx serve frontend`).
 
-## 🏆 Hackathon Track
+## 🏆 Project Vision
 
 This project was built to showcase the power of integrating **AI Coprocessors** into standard DeFi workflows, proving that complex, data-heavy computations (like credit scoring) can be done natively on-chain without sacrificing user privacy.
 
 ---
-*Built with ❤️ for the Web3 & AI Hackathon.*
+*Built with ❤️ for the Web3 & AI Ecosystem.*
