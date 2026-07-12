@@ -1,45 +1,36 @@
-# Hướng Dẫn DevOps - DeepCred AI
+# 🧠 DeepCred AI
 
-Dưới đây là chuỗi lệnh CLI để khởi tạo Git, push lên GitHub và deploy tĩnh lên Vercel.
+![DeepCred AI Banner](https://via.placeholder.com/1200x300/0f172a/3b82f6?text=DeepCred+AI+-+On-Chain+AI+Credit+Scoring)
 
-## 1. Khởi tạo Git và bỏ qua các thư mục cache
-Tạo file `.gitignore` để tránh đưa các thư mục cấu hình nhạy cảm/cache lên git:
+**DeepCred AI** is a decentralized, AI-driven credit scoring platform built for the modern Web3 economy. By leveraging the power of **Ritual's AI Coprocessors** and **Fully Homomorphic Encryption (FHE)**, DeepCred provides privacy-preserving, bias-free, and instantaneous credit lines for businesses and individuals on-chain.
 
-```bash
-cd C:\Users\ADMIN\.gemini\antigravity\scratch\deepcred-ai
-git init
+🚀 **Live Demo:** [https://deepcred-ai.vercel.app](https://deepcred-ai.vercel.app)
+🌐 **Network:** Ritual Testnet (Chain ID: 1979)
+📄 **Smart Contract:** `0x0b97cfe0F65C5e1288CbD7901df20c98bEffE72a`
 
-# Tạo file .gitignore
-echo "cache/" > .gitignore
-echo "out/" >> .gitignore
-echo "broadcast/" >> .gitignore
-echo ".env" >> .gitignore
-echo "node_modules/" >> .gitignore
+---
 
-git add .
-git commit -m "feat: Initial commit for DeepCred AI dApp"
-```
+## 🌟 Key Features
 
-## 2. Push lên GitHub (Dùng GitHub CLI)
-Giả định bạn đã cài đặt và login `gh`:
+- 🤖 **On-Chain AI Inference:** Evaluates encrypted identity and financial data using Ritual's AI models directly on-chain without exposing sensitive user information.
+- 🔒 **Privacy-Preserving (FHE):** Users upload their encrypted data (Tax IDs, Financial history). The AI evaluates the data while it remains encrypted.
+- ⚡ **Instant Credit Issuance:** Automatically mints and allocates `dCRED` (DeepCred Stablecoin) directly to the user's wallet upon approval.
+- 📱 **Seamless dApp Experience:** A sleek, glassmorphism-styled dashboard that connects seamlessly with MetaMask to handle Web3 transactions.
 
-```bash
-# Tạo repository public trên Github
-gh repo create deepcred-ai --public --source=. --remote=origin
+## 🏗 Architecture
 
-# Push toàn bộ code lên branch main
-git branch -M main
-git push -u origin main
-```
+The system consists of three main components:
 
-## 3. Deploy Frontend Lên Vercel
-Bạn đã cài Vercel CLI. Chạy lệnh sau để deploy riêng thư mục `frontend/` lên production.
+1.  **Frontend Dashboard:** A lightweight vanilla JS + TailwindCSS frontend using `viem` to interact with the blockchain.
+2.  **DeepCredCore Contract:** The main orchestrator that holds user profiles, manages the `dCRED` ERC20 token, and handles the application state.
+3.  **DeepCredAgent Contract:** The AI bridge that formats user data and requests asynchronous AI inference jobs from Ritual's TEE precompiles.
 
-```bash
-# Chuyển vào thư mục frontend và deploy
-cd frontend
-vercel --prod --yes
-
-# Gắn domain custom (ví dụ: deepcred-ai-app.vercel.app)
-vercel alias set deepcred-ai-app.vercel.app
-```
+```mermaid
+graph LR
+    User[User / MetaMask] -->|Submit Encrypted Data| Frontend[Web Dashboard]
+    Frontend -->|applyForCredit| Core[DeepCredCore]
+    Core -->|requestEvaluation| Agent[DeepCredAgent]
+    Agent -->|Async Job| Ritual[Ritual AI Precompile]
+    Ritual -->|AI Score Result| Agent
+    Agent -->|updateCreditStatus| Core
+    Core -->|Mint dCRED| User
