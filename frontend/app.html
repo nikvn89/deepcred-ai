@@ -154,9 +154,10 @@
 
         function addLog(message, isError = false) {
             const div = document.createElement('div');
+            div.className = 'flex gap-2 items-start';
             const time = new Date().toISOString().split('T')[1].slice(0,8);
             const colorClass = isError ? 'text-red-400' : 'text-slate-300';
-            div.innerHTML = `<span class="text-slate-500 font-mono text-[10px] mr-2">[${time}]</span> <span class="text-xs ${colorClass}">${message}</span>`;
+            div.innerHTML = `<span class="text-slate-500 font-mono text-[10px] shrink-0 mt-[2px]">[${time}]</span> <span class="text-xs ${colorClass} leading-snug">${message}</span>`;
             activityLog.appendChild(div);
             activityLog.scrollTop = activityLog.scrollHeight;
         }
@@ -299,10 +300,10 @@
             <span class="text-xl font-semibold tracking-tight brand-font">DeepCred</span>
         </div>
         <div class="hidden md:flex gap-8 text-sm text-slate-400">
-            <a href="#" class="hover:text-slate-200 transition">Dashboard</a>
-            <a href="#" class="hover:text-slate-200 transition">Markets</a>
-            <a href="#" class="hover:text-slate-200 transition">Protocol</a>
-            <a href="#" class="hover:text-slate-200 transition">Developers</a>
+            <a href="#" class="text-slate-200 font-medium">Dashboard</a>
+            <a href="markets.html" class="hover:text-slate-200 transition">Markets</a>
+            <a href="protocol.html" class="hover:text-slate-200 transition">Protocol</a>
+            <a href="https://github.com/nikvn89/deepcred-ai" target="_blank" class="hover:text-slate-200 transition">Developers <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></a>
         </div>
         <button id="connectBtn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 px-4 py-2 rounded text-sm font-medium transition text-slate-200 flex items-center gap-2">
             <div class="w-1.5 h-1.5 rounded-full bg-teal-400"></div>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepCred - Markets</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .grid-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            pointer-events: none;
+        }
+        h1, h2, h3, .brand-font { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col relative">
+
+    <div class="grid-overlay"></div>
+
+    <!-- NAVBAR -->
+    <nav class="w-full px-8 py-5 flex justify-between items-center border-b border-slate-800 bg-slate-900/80 backdrop-blur-md z-10">
+        <div class="flex items-center gap-3">
+            <div class="w-7 h-7 rounded bg-slate-800 border border-slate-700 flex items-center justify-center">
+                <i class="fa-solid fa-cube text-slate-300 text-xs"></i>
+            </div>
+            <a href="app.html" class="text-xl font-semibold tracking-tight brand-font">DeepCred</a>
+        </div>
+        <div class="hidden md:flex gap-8 text-sm text-slate-400">
+            <a href="app.html" class="hover:text-slate-200 transition">Dashboard</a>
+            <a href="#" class="text-slate-200 font-medium">Markets</a>
+            <a href="protocol.html" class="hover:text-slate-200 transition">Protocol</a>
+            <a href="https://github.com/nikvn89/deepcred-ai" target="_blank" class="hover:text-slate-200 transition">Developers <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i></a>
+        </div>
+        <button class="bg-slate-800 border border-slate-700 px-4 py-2 rounded text-sm font-medium transition text-slate-500 cursor-not-allowed">
+            Connect Wallet
+        </button>
+    </nav>
+
+    <!-- CONTENT -->
+    <main class="flex-1 flex flex-col items-center justify-center p-6 text-center z-10">
+        <div class="w-16 h-16 rounded-2xl bg-slate-800/50 border border-slate-700 flex items-center justify-center mb-6 shadow-lg">
+            <i class="fa-solid fa-money-bill-transfer text-2xl text-slate-400"></i>
+        </div>
+        <h1 class="text-4xl font-semibold mb-4 brand-font text-slate-100">P2P Credit Markets</h1>
+        <p class="text-slate-400 text-lg max-w-xl mx-auto leading-relaxed mb-8">
+            The decentralized peer-to-peer liquidity markets are currently undergoing smart contract security audits. Mainnet deployment is scheduled for Q4.
+        </p>
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-teal-500/20 bg-teal-500/10 text-teal-400 text-sm font-medium">
+            <div class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></div>
+            Pending Audit
+        </div>
+    </main>
+
+</body>
+</html>
