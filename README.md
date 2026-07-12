@@ -4,9 +4,9 @@
 
 **DeepCred AI** is a decentralized, AI-driven credit scoring platform built for the modern Web3 economy. By leveraging the power of **Ritual's AI Coprocessors** and **Fully Homomorphic Encryption (FHE)**, DeepCred provides privacy-preserving, bias-free, and instantaneous credit lines for businesses and individuals on-chain.
 
-🚀 **Live Demo:** [https://deepcred-ai.vercel.app](https://deepcred-ai.vercel.app)
-🌐 **Network:** Ritual Testnet (Chain ID: 1979)
-📄 **Smart Contract:** `0x0b97cfe0F65C5e1288CbD7901df20c98bEffE72a`
+- 🚀 **Live Demo:** [https://deepcred-ai.vercel.app](https://deepcred-ai.vercel.app)
+- 🌐 **Network:** Ritual Testnet (Chain ID: 1979)
+- 📄 **Smart Contract:** `0x0b97cfe0F65C5e1288CbD7901df20c98bEffE72a`
 
 ---
 
